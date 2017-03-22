@@ -7,7 +7,7 @@
 //
 
 //* Editor -> Embed In -> Navigation Controller
-    //* uncheck adjust scroll view insets on View Controller
+//* uncheck adjust scroll view insets on View Controller
 //* Bar Button Item (System Item -> Add)
 //* New View Controller
 //* Ctrl drag old View Controller to new (Manual Segue -> Show)
@@ -16,13 +16,13 @@ import UIKit
 
 //* add UITableViewDelegate, UITableViewDataSource
 class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
     //* connect tableView to ViewController Code
     @IBOutlet weak var tableView: UITableView!
     
     //* create an empty array of Task objects
     var tasks: [Task] = []
-    
+    var selectedIndexRow = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +53,13 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
         return cell
     }
     
+    //* when a task is selected select task segue and send the task
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let task = tasks[indexPath.row]
+        selectedIndexRow = indexPath.row
+        performSegue(withIdentifier: "selectTaskSegue", sender: task)
+    }
+    
     //* function to create an array of Task objects
     func makeTasks() -> [Task] {
         let task1 = Task()
@@ -75,15 +82,22 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     //* prepare for segue
     //* connects the two view controllers
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let nextVC = segue.destination as! CreateTaskViewController
-        nextVC.previousVC = self
+        if segue.identifier == "addSegue" {
+            let nextVC = segue.destination as! CreateTaskViewController
+            nextVC.previousVC = self
+        }
+        if segue.identifier == "selectTaskSegue" {
+            let nextVC = segue.destination as! CompleteTaskViewController
+            nextVC.task = sender as! Task
+            nextVC.previousVC = self
+        }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    
 }
 
