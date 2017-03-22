@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E46D3DED1E81D4CB0043B0C9 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46D3DEC1E81D4CB0043B0C9 /* Task.swift */; };
+		E4A8B4071E82C0D300B7059C /* CreateTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A8B4061E82C0D300B7059C /* CreateTaskViewController.swift */; };
 		E4DEE45E1E81CB09006C8BDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DEE45D1E81CB09006C8BDA /* AppDelegate.swift */; };
-		E4DEE4601E81CB09006C8BDA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DEE45F1E81CB09006C8BDA /* ViewController.swift */; };
+		E4DEE4601E81CB09006C8BDA /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DEE45F1E81CB09006C8BDA /* TasksViewController.swift */; };
 		E4DEE4631E81CB09006C8BDA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4DEE4611E81CB09006C8BDA /* Main.storyboard */; };
 		E4DEE4661E81CB09006C8BDA /* To_Do_List.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E4DEE4641E81CB09006C8BDA /* To_Do_List.xcdatamodeld */; };
 		E4DEE4681E81CB09006C8BDA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4DEE4671E81CB09006C8BDA /* Assets.xcassets */; };
@@ -16,9 +18,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E46D3DEC1E81D4CB0043B0C9 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		E4A8B4061E82C0D300B7059C /* CreateTaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreateTaskViewController.swift; path = ../CreateTaskViewController.swift; sourceTree = "<group>"; };
 		E4DEE45A1E81CB09006C8BDA /* To Do List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "To Do List.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4DEE45D1E81CB09006C8BDA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E4DEE45F1E81CB09006C8BDA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E4DEE45F1E81CB09006C8BDA /* TasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewController.swift; sourceTree = "<group>"; };
 		E4DEE4621E81CB09006C8BDA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E4DEE4651E81CB09006C8BDA /* To_Do_List.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = To_Do_List.xcdatamodel; sourceTree = "<group>"; };
 		E4DEE4671E81CB09006C8BDA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -57,8 +61,10 @@
 			isa = PBXGroup;
 			children = (
 				E4DEE45D1E81CB09006C8BDA /* AppDelegate.swift */,
-				E4DEE45F1E81CB09006C8BDA /* ViewController.swift */,
+				E4DEE45F1E81CB09006C8BDA /* TasksViewController.swift */,
+				E4A8B4061E82C0D300B7059C /* CreateTaskViewController.swift */,
 				E4DEE4611E81CB09006C8BDA /* Main.storyboard */,
+				E46D3DEC1E81D4CB0043B0C9 /* Task.swift */,
 				E4DEE4671E81CB09006C8BDA /* Assets.xcassets */,
 				E4DEE4691E81CB09006C8BDA /* LaunchScreen.storyboard */,
 				E4DEE46C1E81CB09006C8BDA /* Info.plist */,
@@ -140,9 +146,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4DEE4601E81CB09006C8BDA /* ViewController.swift in Sources */,
+				E46D3DED1E81D4CB0043B0C9 /* Task.swift in Sources */,
+				E4DEE4601E81CB09006C8BDA /* TasksViewController.swift in Sources */,
 				E4DEE4661E81CB09006C8BDA /* To_Do_List.xcdatamodeld in Sources */,
 				E4DEE45E1E81CB09006C8BDA /* AppDelegate.swift in Sources */,
+				E4A8B4071E82C0D300B7059C /* CreateTaskViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,6 +314,7 @@
 				E4DEE4711E81CB09006C8BDA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
