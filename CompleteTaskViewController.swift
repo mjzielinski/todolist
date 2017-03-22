@@ -10,38 +10,31 @@ import UIKit
 
 class CompleteTaskViewController: UIViewController {
     
-    var task = Task()
+    //* set up variable to hold Task object
+    var task : Task? = nil
     
+    //* outlet to taskLabel
     @IBOutlet weak var taskLabel: UILabel!
-    
-    var previousVC = TasksViewController()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if task.importance {
-            taskLabel.text = "❗️\(task.name)"
+        //* set label from task object
+        if task!.importance {
+            taskLabel.text = "❗️\(task!.name!)"
         } else {
-            taskLabel.text = task.name
+            taskLabel.text = task!.name!
         }
-        
     }
     
+    //* when completed is tapped need to delete the item from core data
     @IBAction func completedTapped(_ sender: Any) {
-        previousVC.tasks.remove(at: previousVC.selectedIndexRow)
-        //* reloads the data in previous view controller
-        previousVC.tableView.reloadData()
+        //* set up context
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        //* delete task from core data
+        context.delete(task!)
+        //* pop back navigation
         navigationController!.popViewController(animated: true)
     }
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
-    
     
 }

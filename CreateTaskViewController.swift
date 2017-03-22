@@ -19,31 +19,30 @@ class CreateTaskViewController: UIViewController {
     //* used for error message
     @IBOutlet weak var errorLabel: UILabel!
     
-    //* connection to previous view controller
-    var previousVC = TasksViewController()
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
     }
     
     //* action for add button tapped
     @IBAction func addTapped(_ sender: Any) {
-        //* create a task from the outlet information
-        let task = Task()
-        task.name = taskNameTextField.text!
-        task.importance = importantSwitch.isOn
         
-        //* add new task to array in previous view controller
-        if task.name == "" {
-            errorLabel.text = "Name cannot be blank."
+        if taskNameTextField.text == "" {
+            errorLabel.text = "Please enter task name"
         } else {
-            previousVC.tasks.append(task)
+            //* set up context
+            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+            
+            //* create a task through managed object context
+            let task = Task(context: context)
+            
+            task.name = taskNameTextField.text!
+            task.importance = importantSwitch.isOn
             errorLabel.text = ""
-            //* reloads the data in previous view controller
-            previousVC.tableView.reloadData()
+            
+            //* save context
+            (UIApplication.shared.delegate as! AppDelegate).saveContext()
+            
+            //* pop back
             navigationController!.popViewController(animated: true)
         }
         

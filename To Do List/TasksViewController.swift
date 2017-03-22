@@ -17,23 +17,28 @@ import UIKit
 //* add UITableViewDelegate, UITableViewDataSource
 class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    //* connect tableView to ViewController Code
+    //* outlet to tableView
     @IBOutlet weak var tableView: UITableView!
     
     //* create an empty array of Task objects
     var tasks: [Task] = []
-    var selectedIndexRow = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        //* load the Task objects
-        tasks = makeTasks()
         
         //* added these
         tableView.dataSource = self
         tableView.delegate = self
+    }
+    
+    //* gets called when screen about to show up
+    override func viewWillAppear(_ animated: Bool) {
+        //* function gets tasks from core data
+        getTasks()
+        //* reload table view
+        tableView.reloadData()
+        //* save context
+        (UIApplication.shared.delegate as! AppDelegate).saveContext()
     }
     
     //* specify number of rows in section
@@ -44,59 +49,51 @@ class TasksViewController: UIViewController, UITableViewDelegate, UITableViewDat
     //* specify cell for row at index path
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
+        //* list out the tasks from core data
         let task = tasks[indexPath.row]
         if task.importance {
-            cell.textLabel?.text = "❗️ \(task.name)"
+            cell.textLabel?.text = "❗️ \(task.name!)"
         } else {
-            cell.textLabel?.text = task.name
+            cell.textLabel?.text = task.name!
         }
         return cell
     }
     
-    //* when a task is selected select task segue and send the task
+    //* when a task is selected, select task segue and send the task
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let task = tasks[indexPath.row]
-        selectedIndexRow = indexPath.row
         performSegue(withIdentifier: "selectTaskSegue", sender: task)
     }
     
-    //* function to create an array of Task objects
-    func makeTasks() -> [Task] {
-        let task1 = Task()
-        let task2 = Task()
-        let task3 = Task()
-        task1.name = "Walk Cat"
-        task2.name = "Eat Dog"
-        task3.name = "Pick up Bart"
-        task3.importance = true
-        return [task1, task2, task3]
-    }
-    
-    //* ctrl drag plus button to add action
+    //* when plus button tapped, addSegue
     @IBAction func plusTapped(_ sender: Any) {
         //* give segue an Identifier
         //* performSegue with identifier
         performSegue(withIdentifier: "addSegue", sender: nil)
     }
     
-    //* prepare for segue
-    //* connects the two view controllers
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "addSegue" {
-            let nextVC = segue.destination as! CreateTaskViewController
-            nextVC.previousVC = self
-        }
-        if segue.identifier == "selectTaskSegue" {
-            let nextVC = segue.destination as! CompleteTaskViewController
-            nextVC.task = sender as! Task
-            nextVC.previousVC = self
+    //* this function gets all tasks from core data and puts into tasks array
+    func getTasks() {
+        //* set up context
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        //* fetch request for tasks and put into array of Task objects
+        do {
+            tasks = try context.fetch(Task.fetchRequest()) as! [Task]
+        } catch {
+            print ("Some error")
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    //* prepare for segue
+    //* connects the two view controllers
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //* sends the task to complete task view controller 
+        if segue.identifier == "selectTaskSegue" {
+            let nextVC = segue.destination as! CompleteTaskViewController
+            nextVC.task = sender as? Task
+        }
     }
+    
     
     
 }
